@@ -6,7 +6,7 @@ const router = express.Router();
 
 //load controllers
 import { airtableController } from '../controllers/airtable.controller.js';
-
+console.log('route /airtable called');
 router.get('/', (_req: any, res: { send: (arg0: string) => any }) => res.send('are you looking for some data'));
 router.get('/data', airtableController);
 
