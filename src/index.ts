@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 import { airtableController } from './controllers/airtable.controller';
 dotenv.config();
 
-app.get('/', (_req: any, res: { send: (arg0: string) => any }) => res.send('Hello World!'));
+app.get('/', (_req: any, res: { send: (arg0: string) => any }) => res.send('Server Check!'));
 app.get('/xp', airtableController);
 app.use('/airtable', router);
 
