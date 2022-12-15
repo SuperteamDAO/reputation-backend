@@ -316,6 +316,7 @@ const getXPRecordFunction = async () => {
             const writing = fields['Writing XP'] || 0;
             const video = fields['Video XP'] || 0;
             const total = fields['Total XP'] || 0;
+
             xps.push({
               name: name,
               person_type: personType,

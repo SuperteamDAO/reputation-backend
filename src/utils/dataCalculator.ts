@@ -39,7 +39,6 @@ export async function dataCalculator() {
   const bountiesXP = (await getBounties_xp_view()) as receivedXPFromAirtableType[];
   const stackExchangeXP = (await getStackExchange_xp_view()) as receivedXPFromAirtableType[];
   const bountyDataJson = await getBountiesRecordsFunction();
-
   const personDetailsData: { name: string; personType: string }[] = xpDataJson.map((person) => {
     return {
       name: person.name,
@@ -156,5 +155,73 @@ export async function dataCalculator() {
     };
   });
 
-  return { personData, bountyDataJson };
+  const SevenDaysBefore = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000); //
+  const SevenDaysProjectsData = workingGroupsXP.filter((person) => {
+    if (new Date(person.xp.date) > new Date(SevenDaysBefore)) {
+      return {
+        name: person.name,
+        xp: { sill: person.xp.skill.toLocaleLowerCase(), total_amount: person.xp.total_amount, date: person.xp.date },
+      };
+    }
+  });
+  const SevenDaysIndieWorkData = indieWorkXP.filter((person) => {
+    if (new Date(person.xp.date) > new Date(SevenDaysBefore)) {
+      return {
+        name: person.name,
+        xp: { sill: person.xp.skill.toLocaleLowerCase(), total_amount: person.xp.total_amount, date: person.xp.date },
+      };
+    }
+  });
+  const SevenDaysInternalOpsData = internalOpsXP.filter((person) => {
+    if (new Date(person.xp.date) > new Date(SevenDaysBefore)) {
+      return {
+        name: person.name,
+        xp: { sill: person.xp.skill.toLocaleLowerCase(), total_amount: person.xp.total_amount, date: person.xp.date },
+      };
+    }
+  });
+  const SevenDaysWorkingGroupData = workingGroupsXP.filter((person) => {
+    if (new Date(person.xp.date) > new Date(SevenDaysBefore)) {
+      return {
+        name: person.name,
+        xp: { sill: person.xp.skill.toLocaleLowerCase(), total_amount: person.xp.total_amount, date: person.xp.date },
+      };
+    }
+  });
+  const SevenDaysBountiesData = bountiesXP.filter((person) => {
+    if (new Date(person.xp.date) > new Date(SevenDaysBefore)) {
+      return {
+        name: person.name,
+        xp: { sill: person.xp.skill.toLocaleLowerCase(), total_amount: person.xp.total_amount, date: person.xp.date },
+      };
+    }
+  });
+  const SevenDaysStackExchangeData = stackExchangeXP.filter((person) => {
+    if (new Date(person.xp.date) > new Date(SevenDaysBefore)) {
+      return {
+        name: person.name,
+        xp: { sill: person.xp.skill.toLocaleLowerCase(), total_amount: person.xp.total_amount, date: person.xp.date },
+      };
+    }
+  });
+  const SevenDaysBountiesXPData = bountyDataJson.filter((person) => {
+    if (new Date(person.xp.date) > new Date(SevenDaysBefore)) {
+      return {
+        name: person.name,
+        xp: { sill: person.xp.skill.toLocaleLowerCase(), total_amount: person.xp.total_amount, date: person.xp.date },
+      };
+    }
+  });
+
+  const lastSevenDaysData = [
+    ...SevenDaysProjectsData,
+    ...SevenDaysIndieWorkData,
+    ...SevenDaysInternalOpsData,
+    ...SevenDaysWorkingGroupData,
+    ...SevenDaysBountiesData,
+    ...SevenDaysStackExchangeData,
+    ...SevenDaysBountiesXPData,
+  ];
+
+  return { personData, bountyDataJson, lastSevenDaysData };
 }
