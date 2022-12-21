@@ -1,15 +1,21 @@
 // create a basic express server to ping the server
-import express from 'express';
-const app = express();
-import router from './routes/airtable.route';
-const port = 3000;
 
-import dotenv from 'dotenv';
-import { airtableController } from './controllers/airtable.controller';
-dotenv.config();
+import App from './app';
+import logger from './services/logger';
+import XPController from './controllers/XP/xp.controller';
 
-app.get('/', (_req: any, res: { send: (arg0: string) => any }) => res.send('Server Check!'));
-app.get('/xp', airtableController);
-app.use('/airtable', router);
+const main = async () => {
+  // EnvService should always be the first
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+  // Setup db connection and then start app
+  const app = new App([new XPController()]);
+  app.listen();
+};
+main()
+  .then(() => {
+    logger.info('App started');
+  })
+  .catch((err) => {
+    logger.error('App failed');
+    logger.error(err.stack);
+  });
