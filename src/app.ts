@@ -13,7 +13,7 @@ class App {
 
   constructor(controllers: readonly Controller[]) {
     this.app = express();
-
+    this.app.use('/checks', (_, response) => response.send());
     this.initializeStandardMiddlewares();
     this.initializeControllers(controllers);
   }
