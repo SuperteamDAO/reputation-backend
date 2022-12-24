@@ -21,5 +21,31 @@ model Projects_Work {
   xp            Int
   skill         String
   Projects_Info Projects_Info? @relation(fields: [project_name], references: [project_name])
-  project_name  String?
+  project_name  String
+}
+
+model XpBySkill {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  personType   String
+  writing      Int
+  development  Int
+  desgin       Int
+  video        Int
+  OPs          Int
+  Strategy     Int
+  Total        Int
+  Last_Updated String
+}
+
+model XpByWork {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  personType String
+  Project    Int
+  Indie      Int
+  Team       Int
+  Bounty     Int
+  CAB        Int
+  Total      Int
 }

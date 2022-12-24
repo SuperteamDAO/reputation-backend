@@ -9,6 +9,7 @@ const main = async () => {
 
   // Setup db connection and then start app
   const app = new App([new XPController()]);
+
   app.listen();
 };
 main()

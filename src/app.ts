@@ -7,20 +7,35 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import Controller from './interfaces/controller.interface';
 import logger from './services/logger';
+import { swaggerSetup, swaggerUI } from './utils/swagger';
 dotenv.config();
 class App {
   public app: express.Application;
 
   constructor(controllers: readonly Controller[]) {
     this.app = express();
-    this.app.use('/checks', (_, response) => response.send());
+    /**
+     * @openapi
+     * /checks:
+     *  get:
+     *     tags:
+     *     - Healthcheck
+     *     description: Responds if the app is up and running
+     *     responses:
+     *       200:
+     *         description: App is up and running
+     */
+    this.app.use('/checks', (_, response) => response.send('Server is running'));
     this.initializeStandardMiddlewares();
     this.initializeControllers(controllers);
+    this.app.use('/docs', swaggerUI, swaggerSetup);
+    logger.info(`Docs available at http://localhost:3001/docs`);
   }
   public listen(): void {
     this.app.listen(process.env.PORT, () => {
       /* istanbul ignore next */
       logger.info(`App listening on the port ${process.env.PORT}`);
+      // swaggerDocs(this.app, process.env.PORT);
     });
   }
 
