@@ -20,6 +20,25 @@ class XPController implements Controller {
     this.router.post(`${XP_API}/xpBySkill`, validationMiddleware(XpBySkillDto), this.getXpBySkill);
     this.router.post(`${XP_API}/xpByWork`, validationMiddleware(XpByWorkDto), this.getXpByWork);
   }
+  /**
+   * @openapi
+   * '/api/v1/xp/projects':
+   *  get:
+   *     tags:
+   *     - Projects
+   *     summary: Get
+   *     requestBody:
+   *      required: true
+   *
+   *     responses:
+   *      200:
+   *        description: Success
+   *
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
   private getProjects = async (_request: express.Request, response: express.Response) => {
     try {
       const res = await prisma.projects_Info.findMany({
@@ -32,7 +51,28 @@ class XPController implements Controller {
       response.send(createFailureResponse(500, error));
     }
   };
-
+  /**
+   * @openapi
+   * '/api/v1/xp/xpBySkill':
+   *  post:
+   *     tags:
+   *     - XP by Skill
+   *     summary: fetch xp by discord username
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *              $ref: '#/components/schemas/XpByWork'
+   *     responses:
+   *      200:
+   *        description: Success
+   *
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
   private getXpBySkill = async (request: express.Request, response: express.Response) => {
     const { name } = request.body;
     try {
@@ -46,7 +86,28 @@ class XPController implements Controller {
       response.send(createFailureResponse(500, error));
     }
   };
-
+  /**
+   * @openapi
+   * '/api/v1/xp/xpByWork':
+   *  post:
+   *     tags:
+   *     - XP by Work
+   *     summary: fetch xp by discord username
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *              $ref: '#/components/schemas/XpByWork'
+   *     responses:
+   *      200:
+   *        description: Success
+   *
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
   private getXpByWork = async (request: express.Request, response: express.Response) => {
     const { name } = request.body;
     try {

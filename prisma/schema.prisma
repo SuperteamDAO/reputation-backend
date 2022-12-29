@@ -49,3 +49,22 @@ model XpByWork {
   CAB        Int
   Total      Int
 }
+
+model Indie_Work {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  Explanation String
+  skill       String
+  xp          Int
+  Proof       String
+  Date        String
+}
+
+model Cab {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  cab_name String
+  skill    String
+  xp       Int
+  Date     String
+}
