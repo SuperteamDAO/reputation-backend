@@ -19,6 +19,8 @@ class XPController implements Controller {
     this.router.get(`${XP_API}/projects`, this.getProjects);
     this.router.post(`${XP_API}/xpBySkill`, validationMiddleware(XpBySkillDto), this.getXpBySkill);
     this.router.post(`${XP_API}/xpByWork`, validationMiddleware(XpByWorkDto), this.getXpByWork);
+    this.router.get(`${XP_API}/indie`, this.getIndie);
+    this.router.get(`${XP_API}/cab`, this.getcab);
   }
   /**
    * @openapi
@@ -116,6 +118,61 @@ class XPController implements Controller {
           name: name,
         },
       });
+      response.send(createSuccessResponse(res));
+    } catch (error) {
+      response.send(createFailureResponse(500, error));
+    }
+  };
+
+  /**
+   * @openapi
+   * '/api/v1/xp/indie':
+   *  get:
+   *     tags:
+   *     - Indie
+   *     summary: Get
+   *     requestBody:
+   *      required: true
+   *
+   *     responses:
+   *      200:
+   *        description: Success
+   *
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
+  private getIndie = async (_request: express.Request, response: express.Response) => {
+    try {
+      const res = await prisma.indie_Work.findMany();
+      response.send(createSuccessResponse(res));
+    } catch (error) {
+      response.send(createFailureResponse(500, error));
+    }
+  };
+  /**
+   * @openapi
+   * '/api/v1/xp/cab':
+   *  get:
+   *     tags:
+   *     - Cabs
+   *     summary: Get
+   *     requestBody:
+   *      required: true
+   *
+   *     responses:
+   *      200:
+   *        description: Success
+   *
+   *      409:
+   *        description: Conflict
+   *      400:
+   *        description: Bad request
+   */
+  private getcab = async (_request: express.Request, response: express.Response) => {
+    try {
+      const res = await prisma.cab.findMany();
       response.send(createSuccessResponse(res));
     } catch (error) {
       response.send(createFailureResponse(500, error));

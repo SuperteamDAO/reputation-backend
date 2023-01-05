@@ -34,4 +34,20 @@ interface XpByWork {
   CAB: number;
   Total: number;
 }
-export { project_member, projects, XpBySkills, XpByWork };
+
+interface IndieWorkType {
+  name: string;
+  Explanation: string;
+  skill: string;
+  xp: number;
+  Proof: string;
+  Date: string;
+}
+interface CabWorkType {
+  name: string;
+  cab_name: string;
+  skill: string;
+  xp: number;
+  Date: string;
+}
+export { project_member, projects, XpBySkills, XpByWork, CabWorkType, IndieWorkType };
