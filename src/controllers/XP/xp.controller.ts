@@ -29,8 +29,7 @@ class XPController implements Controller {
    *     tags:
    *     - Projects
    *     summary: Get
-   *     requestBody:
-   *      required: true
+   *
    *
    *     responses:
    *      200:
@@ -131,8 +130,7 @@ class XPController implements Controller {
    *     tags:
    *     - Indie
    *     summary: Get
-   *     requestBody:
-   *      required: true
+   *
    *
    *     responses:
    *      200:
@@ -158,8 +156,7 @@ class XPController implements Controller {
    *     tags:
    *     - Cabs
    *     summary: Get
-   *     requestBody:
-   *      required: true
+   *
    *
    *     responses:
    *      200:
